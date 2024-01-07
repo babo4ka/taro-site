@@ -7,9 +7,13 @@ const MainPage = () =>{
 
     const [titleText, setTitleText] = useState("набазарь себе судьбу")
 
+    //1 - get, 2 - my, 0 - none
+    const [pageType, setPageType] = useState(0)
+
 
     const goToGet = () =>{
         setTitleText("какую судьбуу базарим?")
+        setPageType(1)
 
         $("#main-menu-btns").addClass("hidden-btns")
         $("#choose-pred-btns").removeClass("hidden-btns")
@@ -17,6 +21,7 @@ const MainPage = () =>{
 
     const goToMy = () =>{
         setTitleText("набазаренная судьба")
+        setPageType(2)
 
         $("#main-menu-btns").addClass("hidden-btns")
         $("#choose-pred-btns").removeClass("hidden-btns")
@@ -24,6 +29,7 @@ const MainPage = () =>{
 
     const goToMain = () =>{
         setTitleText("набазарь себе судьбу")
+        setPageType(0)
 
         $("#main-menu-btns").removeClass("hidden-btns")
         $("#choose-pred-btns").addClass("hidden-btns")

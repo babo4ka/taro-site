@@ -9,6 +9,7 @@ import {
   Link
 } from "react-router-dom";
 import MainPage from './components/MainPage';
+import GetGeneralPred from './components/get_preds/GetGeneralPred';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<MainPage/>}/>
+          <Route exact path="/getGeneral" element={<GetGeneralPred/>} />
         </Routes>
       </Router>
     </Provider>
