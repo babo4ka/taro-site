@@ -2,7 +2,7 @@ import "./MainPage.css"
 import "./Common.css"
 import { useState } from "react"
 import $ from 'jquery'
-import { useDispatch } from "react-redux"
+import { useDispatch} from "react-redux"
 import { add_page } from "../store/pageReducer"
 
 const MainPage = () =>{
@@ -42,8 +42,10 @@ const MainPage = () =>{
 
     const dispatch = useDispatch()
 
-    const openNextPage = () => {
+    const openGeneralPage = () => {
         dispatch(add_page("/"))
+
+        window.location.href = generalPages[pageType]
     }
 
 
@@ -61,9 +63,9 @@ const MainPage = () =>{
                 </div>
  
                 <div id="choose-pred-btns" className="col-12 row justify-content-center mt-5 hidden-btns">
-                    <a href={generalPages[pageType]} onClick={()=>openNextPage()} className="btn col-md-2 col-12 nav_btn">общее</a>
-                    <a href={ynPages[pageType]} className="btn col-md-2 col-12 nav_btn">да / нет</a>
-                    <a href={pffPages[pageType]} className="btn col-md-2 col-12 nav_btn">прошлое-настоящее-будущее</a>
+                    <button onClick={openGeneralPage} className="btn col-md-2 col-12 nav_btn">общее</button>
+                    <button className="btn col-md-2 col-12 nav_btn">да / нет</button>
+                    <button className="btn col-md-2 col-12 nav_btn">прошлое-настоящее-будущее</button>
                     <div className="col-12">
                         <button onClick={goToMain} className="btn col-md-2 col-12 nav_btn mt-3">назад</button>
                     </div>

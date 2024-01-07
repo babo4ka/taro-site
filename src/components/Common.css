@@ -10,7 +10,7 @@
 
     /* max-width: 250px; */
 
-
+    border-radius: 15px;
     margin: 0px 10px 0px 10px ;
 }
 
@@ -20,4 +20,21 @@
 
 
     border: 1px solid #FFFFFF;
+}
+
+.bazar-btn-holder{
+    margin-top: 250px;
+}
+
+.get-bazar-btn{
+    background-color: #350079;
+    color: #1C1C1C;
+    font-weight: 500;
+    height: 75px;
+    border-radius: 15px;
+}
+
+.get-bazar-btn:hover{
+    background-color: #34007959;
+    color: #FFFFFF;
 }
