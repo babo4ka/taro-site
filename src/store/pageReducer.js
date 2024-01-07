@@ -9,22 +9,21 @@ export const REMOVE_PAGE = "REMOVE"
 export const pageReducer = (state = initialState, action)=>{
     switch(action.type){
         case ADD_PAGE:
-            return {...state, pagesStack: ()=>{
-                let stack = state.pagesStack
-                stack.push(action.page)
-                return stack
-            }}
+            var stack = state.pagesStack
+            stack.push(action.page)
+
+            return {...state, pagesStack:stack}
 
         case REMOVE_PAGE:
-            return {...state, pagesStack: ()=>{
-                let stack = state.pagesStack
-                stack.pop()
-                return stack
-            }}
+            var stack = state.pagesStack
+            stack.pop()
+            return {...state, pagesStack:stack}
 
         default:
             return state
     }
+
+
 }
 
 

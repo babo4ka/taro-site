@@ -2,26 +2,24 @@ import "./MainPage.css"
 import "./Common.css"
 import { useState } from "react"
 import $ from 'jquery'
+import { useDispatch } from "react-redux"
+import { add_page } from "../store/pageReducer"
 
 const MainPage = () =>{
 
     const [titleText, setTitleText] = useState("набазарь себе судьбу")
 
-    //1 - get, 2 - my, 0 - none
-    const [pageType, setPageType] = useState(0)
-
 
     const goToGet = () =>{
         setTitleText("какую судьбуу базарим?")
-        setPageType(1)
-
+        setPageType(0)
         $("#main-menu-btns").addClass("hidden-btns")
         $("#choose-pred-btns").removeClass("hidden-btns")
     }
 
     const goToMy = () =>{
         setTitleText("набазаренная судьба")
-        setPageType(2)
+        setPageType(1)
 
         $("#main-menu-btns").addClass("hidden-btns")
         $("#choose-pred-btns").removeClass("hidden-btns")
@@ -29,11 +27,25 @@ const MainPage = () =>{
 
     const goToMain = () =>{
         setTitleText("набазарь себе судьбу")
-        setPageType(0)
+        setPageType(-1)
 
         $("#main-menu-btns").removeClass("hidden-btns")
         $("#choose-pred-btns").addClass("hidden-btns")
     }
+
+
+    const generalPages = ["/getGeneral", "/myGeneral"]
+    const ynPages = ["/getYN", "/myYN"]
+    const pffPages = ["/getPFF", "/myPFF"]
+    //0 - get, 1 - my, (-1) - none
+    const [pageType, setPageType] = useState(-1)
+
+    const dispatch = useDispatch()
+
+    const openNextPage = () => {
+        dispatch(add_page("/"))
+    }
+
 
     return(
         <div className="container-fluid">
@@ -47,11 +59,11 @@ const MainPage = () =>{
 
                     <button onClick={goToMy} className="btn col-md-2 col-12 nav_btn">мои предсказания</button>
                 </div>
-
+ 
                 <div id="choose-pred-btns" className="col-12 row justify-content-center mt-5 hidden-btns">
-                    <button className="btn col-md-2 col-12 nav_btn">общее</button>
-                    <button className="btn col-md-2 col-12 nav_btn">да / нет</button>
-                    <button className="btn col-md-2 col-12 nav_btn">прошлое-настоящее-будущее</button>
+                    <a href={generalPages[pageType]} onClick={()=>openNextPage()} className="btn col-md-2 col-12 nav_btn">общее</a>
+                    <a href={ynPages[pageType]} className="btn col-md-2 col-12 nav_btn">да / нет</a>
+                    <a href={pffPages[pageType]} className="btn col-md-2 col-12 nav_btn">прошлое-настоящее-будущее</a>
                     <div className="col-12">
                         <button onClick={goToMain} className="btn col-md-2 col-12 nav_btn mt-3">назад</button>
                     </div>
