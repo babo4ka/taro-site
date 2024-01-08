@@ -38,3 +38,23 @@
     background-color: #34007959;
     color: #FFFFFF;
 }
+
+
+.prediction_holder{
+    position: relative;
+    background-color: #350079;
+    color: #FFFFFF;
+
+    border-radius: 15px;
+}
+
+.close-btn{
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+}
+
+.remove-btn{
+    color: #FFFFFF;
+    background-color: #EF0404;
+}

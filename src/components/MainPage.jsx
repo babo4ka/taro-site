@@ -2,12 +2,13 @@ import "./MainPage.css"
 import "./Common.css"
 import { useState } from "react"
 import $ from 'jquery'
-import { useDispatch} from "react-redux"
+import { useDispatch, useSelector} from "react-redux"
 import { add_page } from "../store/pageReducer"
 
 const MainPage = () =>{
 
     const [titleText, setTitleText] = useState("набазарь себе судьбу")
+
 
 
     const goToGet = () =>{
@@ -40,11 +41,7 @@ const MainPage = () =>{
     //0 - get, 1 - my, (-1) - none
     const [pageType, setPageType] = useState(-1)
 
-    const dispatch = useDispatch()
-
     const openGeneralPage = () => {
-        dispatch(add_page("/"))
-
         window.location.href = generalPages[pageType]
     }
 

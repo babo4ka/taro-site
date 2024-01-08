@@ -1,18 +1,52 @@
-import { useEffect } from "react"
-import { useSelector } from "react-redux"
-
 import "../Common.css"
-import { store } from "../../store/store"
+import { getFromLocalStorage } from "../../utils/utils"
+import { useEffect, useState } from "react"
+
+const PredCard = ({text, date}) =>{
+
+    return(
+        <div className="container-fluid prediction_holder col-7 mt-3 mb-3">
+            <span className="close-btn">&#10060;</span>
+            <div className="row justify-content-center">
+                <div className="col-12 text-start fw-bold mt-2">
+                    <span>{date}</span>
+                </div>
+
+                <div className="col-12 text-start mt-3 mb-2">
+                    <span>{text}</span>
+                </div>
+            </div>
+        </div>
+    )
+}
 
 const GetGeneralPred = () =>{
-    const prevp = useSelector(state => state.page)
 
-    useEffect(()=>{
-        console.log(prevp)
-    })
+    // const [predictions, setPredictions] = useState(getFromLocalStorage("general"))
+
+    const predictions = [{
+        text:"312312 выф ыфв ыфрв ыфолв оырфов рфыо вфыр воыфро вфыр овр ыфо",
+        date:"321321312312"
+    },
+    {
+        text:"312312 выф ыфв ыфрв ыфолв оырфов рфыо вфыр воыфро вфыр овр ыфо",
+        date:"321321312312"
+    },
+    {
+        text:"312312 выф ыфв ыфрв ыфолв оырфов рфыо вфыр воыфро вфыр овр ыфо",
+        date:"321321312312"
+    },
+    {
+        text:"312312 выф ыфв ыфрв ыфолв оырфов рфыо вфыр воыфро вфыр овр ыфо",
+        date:"321321312312"
+    },
+    {
+        text:"312312 выф ыфв ыфрв ыфолв оырфов рфыо вфыр воыфро вфыр овр ыфо",
+        date:"321321312312"
+    }]
+
 
     const goBack = () =>{
-        console.log(prevp)
         window.location.href = "/"
     }
 
@@ -32,6 +66,24 @@ const GetGeneralPred = () =>{
                     </button>
                 </div>
             </div>
+
+            {predictions?(
+                <div className="row justify-content-center mt-5">
+                    <div className="col-12 row justify-content-center">
+                        <div className="col-7">
+                        <button className="btn remove-btn col-2">Удалить все</button>
+                        </div>
+                        
+                    </div>
+                    
+                    <div className="col-12">
+                        {predictions.map(p =>(
+                            <PredCard text={p.text} date={p.date}/>
+                        ))}
+                    </div>
+                </div>
+            ):""}
+            
         </div>
     )
 }

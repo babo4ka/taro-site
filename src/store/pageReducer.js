@@ -1,5 +1,5 @@
 const initialState = {
-    pagesStack : []
+    pagesStack : new Array(),
 }
 
 
@@ -22,8 +22,6 @@ export const pageReducer = (state = initialState, action)=>{
         default:
             return state
     }
-
-
 }
 
 
