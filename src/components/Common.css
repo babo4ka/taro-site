@@ -44,8 +44,11 @@
     position: relative;
     background-color: #350079;
     color: #FFFFFF;
-
     border-radius: 15px;
+}
+
+.last_holder{
+    display: none;
 }
 
 .close-btn{

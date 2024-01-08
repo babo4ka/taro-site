@@ -3,15 +3,19 @@ import { getFromLocalStorage, removeFromLocalStorage, saveToLocalStorage, remove
 import { useEffect, useState } from "react"
 import $ from 'jquery'
 
-const PredCard = ({text, inkey, update}) =>{
+const PredCard = ({text, inkey, update, isLast}) =>{
 
     const deletePred = ()=>{
         removeFromLocalStorage("general", inkey)
         update()
     }
 
+    useEffect(()=>{
+        $(".last_holder").fadeIn('slow')
+    })
+
     return(
-        <div className="container-fluid prediction_holder col-7 mt-3 mb-3">
+        <div className={`container-fluid prediction_holder col-7 mt-3 mb-3 ${isLast?"last_holder":""}`}>
             <span onClick={deletePred} className="close-btn">&#10060;</span>
             <div className="row justify-content-center">
 
@@ -26,22 +30,35 @@ const PredCard = ({text, inkey, update}) =>{
 
 const GetGeneralPred = () =>{
 
-    const [predictions, setPredictions] = useState()
+    const [predictions, setPredictions] = useState(undefined)
 
     const updatePreds = () =>{
+        console.log("update preds")
         const preds = getFromLocalStorage("general")
         const predsArr = []
-        
-        for(var key in preds){
-            if (key != 'last'){
+
+        if(preds != undefined){
+            for(let i=preds.last; i>0; i--){
                 predsArr.push({
-                    text:preds[key],
-                    inkey:key
+                    text:preds[i],
+                    inkey:i,
+                    isLast:i==preds.last
                 })
             }
         }
+        
+        // for(var key in preds){
+        //     if (key != 'last'){
+        //         predsArr.push({
+        //             text:preds[key],
+        //             inkey:key
+        //         })
+        //     }
+        // }
 
+        // console.log(predictions)
         setPredictions(predsArr)
+        // console.log(predictions)
     }
 
     useEffect(()=>{
@@ -51,13 +68,18 @@ const GetGeneralPred = () =>{
     const [prediction, setPrediction] = useState("")
 
     const getPrediction = () =>{
+        console.log("get pred before fetch")
         $.get("http://localhost:8080/getGeneral", (data)=>{
+            console.log("get pred after fetch inside")
             setPrediction(data)
-
+            
             saveToLocalStorage("general", data)
-
+            
             updatePreds()
+            
         })
+        console.log("get pred after fetch outside")
+        setPredictions(undefined)
     }
 
     const removeAllPreds = () =>{
@@ -105,7 +127,7 @@ const GetGeneralPred = () =>{
                     
                     <div className="col-12">
                         {predictions.map(p =>(
-                            <PredCard text={p.text} inkey={p.inkey} update={updatePreds}/>
+                            <PredCard text={p.text} inkey={p.inkey} isLast={p.isLast} update={updatePreds}/>
                         ))}
                     </div>
                 </div>
