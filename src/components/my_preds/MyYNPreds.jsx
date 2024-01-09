@@ -1,37 +1,36 @@
+import YNPrediction from "../YNPrediction"
+import { goBack, getFromLocalStorage, removeAll } from "../../utils/utils"
 import { useEffect, useState } from "react"
-import { getFromLocalStorage, removeAll, goBack } from "../../utils/utils"
-import GeneralPrediction from "../GeneralPrediction"
 
-const MyGeneralPreds = () =>{
+const MyYNPreds = () =>{
 
     const [predictions, setPredictions] = useState(undefined)
 
     const updatePreds = () =>{
-        console.log("update preds")
-        const preds = getFromLocalStorage("general")
+        const preds = getFromLocalStorage("yn")
         const predsArr = []
 
         if(preds != undefined){
             for(let i=preds.last; i>0; i--){
                 predsArr.push({
-                    text:preds[i],
-                    inkey:i,
-                    isLast:i==preds.last
+                    preds:preds[i],
+                    inkey:i
                 })
             }
         }
 
         setPredictions(predsArr)
     }
-    
-    const removeAllPreds = () =>{
-        removeAll("general")
-        updatePreds()
-    }
 
     useEffect(()=>{
         updatePreds()
     }, [])
+
+    const removeAllPreds = () =>{
+        removeAll("yn")
+        updatePreds()
+    }
+
 
     return(
         <div className="container-fluid">
@@ -53,7 +52,7 @@ const MyGeneralPreds = () =>{
                     
                     <div className="col-12">
                         {predictions.map(p =>(
-                            <GeneralPrediction text={p.text} inkey={p.inkey} isLast={p.isLast} update={updatePreds}/>
+                            <YNPrediction preds={p.preds} inkey={p.inkey} update={updatePreds}/>
                         ))}
                     </div>
                 </div>
@@ -62,4 +61,4 @@ const MyGeneralPreds = () =>{
     )
 }
 
-export default MyGeneralPreds
+export default MyYNPreds

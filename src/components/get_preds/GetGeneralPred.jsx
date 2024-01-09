@@ -1,5 +1,5 @@
 import "../Common.css"
-import { getFromLocalStorage, removeFromLocalStorage, saveToLocalStorage, removeAll} from "../../utils/utils"
+import { getFromLocalStorage, removeFromLocalStorage, saveToLocalStorage, removeAll, goBack} from "../../utils/utils"
 import { useEffect, useState } from "react"
 import $ from 'jquery'
 import GeneralPrediction from "../GeneralPrediction"
@@ -67,12 +67,6 @@ const GetGeneralPred = () =>{
         removeAll("general")
         updatePreds()
     }
-
-
-    const goBack = () =>{
-        window.location.href = "/"
-    }
-
 
 
     return(

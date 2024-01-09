@@ -51,3 +51,8 @@ export const removeAll = (key) =>{
 export const getFromLocalStorage = (key) =>{
     return JSON.parse(localStorage.getItem(key))
 }
+
+
+export const goBack = () =>{
+    window.location.href = "/"
+}

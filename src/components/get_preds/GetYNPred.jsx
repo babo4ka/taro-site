@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import { useState } from 'react'
-import { saveToLocalStorage } from '../../utils/utils'
+import { saveToLocalStorage, goBack } from '../../utils/utils'
 
 const YNCard = ({predText, index}) =>{
 
@@ -61,9 +61,6 @@ const GetYNPred = () =>{
         })
     }
 
-    const goBack = () =>{
-        window.location.href = "/"
-    }
 
     return(
         <div className="container-fluid">
