@@ -11,7 +11,7 @@
     /* max-width: 250px; */
 
     border-radius: 15px;
-    margin: 0px 10px 0px 10px ;
+    margin: 0px 10px 0px 10px;
 }
 
 .nav_btn:hover{
@@ -64,4 +64,16 @@
 
 .prediction-text{
     color: #FFFFFF;
+}
+
+
+.yn-holder{
+    margin: 0px 10px 0px 10px;
+
+    font-weight: 500;
+}
+
+.before-flip-yn-holder{
+    cursor: pointer;
+    max-height: 50px;
 }
