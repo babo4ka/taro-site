@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 import MainPage from './components/MainPage';
 import GetGeneralPred from './components/get_preds/GetGeneralPred';
+import MyGeneralPreds from './components/my_preds/MyGeneralPreds';
+import GetYNPred from './components/get_preds/GetYNPred';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<MainPage/>}/>
           <Route exact path="/getGeneral" element={<GetGeneralPred/>} />
+          <Route exact path="/myGeneral" element={<MyGeneralPreds/>}/>
+          <Route exact path="/getYN" element={<GetYNPred/>}/>
         </Routes>
       </Router>
     </Provider>

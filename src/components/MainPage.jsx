@@ -45,6 +45,10 @@ const MainPage = () =>{
         window.location.href = generalPages[pageType]
     }
 
+    const openYNPage = () =>{
+        window.location.href = ynPages[pageType]
+    }
+
 
     return(
         <div className="container-fluid">
@@ -61,7 +65,7 @@ const MainPage = () =>{
  
                 <div id="choose-pred-btns" className="col-12 row justify-content-center mt-5 hidden-btns">
                     <button onClick={openGeneralPage} className="btn col-md-2 col-12 nav_btn">общее</button>
-                    <button className="btn col-md-2 col-12 nav_btn">да / нет</button>
+                    <button onClick={openYNPage} className="btn col-md-2 col-12 nav_btn">да / нет</button>
                     <button className="btn col-md-2 col-12 nav_btn">прошлое-настоящее-будущее</button>
                     <div className="col-12">
                         <button onClick={goToMain} className="btn col-md-2 col-12 nav_btn mt-3">назад</button>

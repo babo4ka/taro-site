@@ -2,31 +2,8 @@ import "../Common.css"
 import { getFromLocalStorage, removeFromLocalStorage, saveToLocalStorage, removeAll} from "../../utils/utils"
 import { useEffect, useState } from "react"
 import $ from 'jquery'
+import GeneralPrediction from "../GeneralPrediction"
 
-const PredCard = ({text, inkey, update, isLast}) =>{
-
-    const deletePred = ()=>{
-        removeFromLocalStorage("general", inkey)
-        update()
-    }
-
-    useEffect(()=>{
-        $(".last_holder").fadeIn('slow')
-    })
-
-    return(
-        <div className={`container-fluid prediction_holder col-7 mt-3 mb-3 ${isLast?"last_holder":""}`}>
-            <span onClick={deletePred} className="close-btn">&#10060;</span>
-            <div className="row justify-content-center">
-
-
-                <div className="col-12 text-start mt-3 mb-2">
-                    <span>{text}</span>
-                </div>
-            </div>
-        </div>
-    )
-}
 
 const GetGeneralPred = () =>{
 
@@ -69,17 +46,21 @@ const GetGeneralPred = () =>{
 
     const getPrediction = () =>{
         console.log("get pred before fetch")
+        setPredictions(undefined)
         $.get("http://localhost:8080/getGeneral", (data)=>{
-            console.log("get pred after fetch inside")
+            // console.log("get pred after fetch inside")
             setPrediction(data)
             
             saveToLocalStorage("general", data)
             
             updatePreds()
             
+        }).fail((data)=>{
+           updatePreds()
+           setPrediction(data.responseText)
         })
         console.log("get pred after fetch outside")
-        setPredictions(undefined)
+        
     }
 
     const removeAllPreds = () =>{
@@ -127,7 +108,7 @@ const GetGeneralPred = () =>{
                     
                     <div className="col-12">
                         {predictions.map(p =>(
-                            <PredCard text={p.text} inkey={p.inkey} isLast={p.isLast} update={updatePreds}/>
+                            <GeneralPrediction text={p.text} inkey={p.inkey} isLast={p.isLast} update={updatePreds}/>
                         ))}
                     </div>
                 </div>
