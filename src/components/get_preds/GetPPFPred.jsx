@@ -45,13 +45,13 @@ const GetPPFPred = () =>{
     const [predType, setPredType] = useState(0)
     const EnlargePred = (e) =>{
         document.body.style.overflow = "hidden";
+        
         let direction = e.deltaY < 0?-1:1
-
+        console.log(direction)
         let newZoom = currentZoom + direction * stepSize
 
         let pred = document.getElementById("ppf-pred")
 
-        console.log("start ", currentZoom)
 
 
         if(newZoom > maxZoom || newZoom < minZoom){
@@ -67,12 +67,9 @@ const GetPPFPred = () =>{
                     setPredTypeKey(nextPred)
 
                     pred.style.transform = `scale(0)`
-
-                    console.log("make more block ", currentZoom)
                 }else{
                     document.body.style.overflow = "auto";
                 }
-                console.log("more block ", currentZoom)
             }else if (newZoom < minZoom){
                 if(predType > 0){
                     setPredType(p =>{
@@ -84,25 +81,15 @@ const GetPPFPred = () =>{
                     setPredTypeKey(nextPred)
 
                     pred.style.transform = `scale(1)`
-
-                    console.log("make less block ", currentZoom)
                 }else{
                     document.body.style.overflow = "auto";
                 }
-
-                console.log("less block ", currentZoom)
             }
-            console.log("or or block ", currentZoom)
         }else{
-            // currentZoom = newZoom
             setCurrentZoom(newZoom)
     
-            pred.style.transform = `scale(${currentZoom/10})`
-
-            console.log("usual ", currentZoom)
+            pred.style.transform = `scale(${newZoom/10})`
         }
-
-        console.log("end ", currentZoom)
     }
 
     return(
