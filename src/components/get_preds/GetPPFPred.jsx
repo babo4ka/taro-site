@@ -1,4 +1,4 @@
-import { goBack } from "../../utils/utils"
+import { goBack, saveToLocalStorage } from "../../utils/utils"
 import $ from 'jquery'
 import { useEffect, useState } from "react"
 import { act } from "react-dom/test-utils"
@@ -25,14 +25,14 @@ const GetPPFPred = () =>{
         setPredictions(undefined)
         setStatus("гадаем судьбу...")
         await $.get("http://localhost:8080/getPPF", (data)=>{
-            console.log(data)
+            console.log(Object.keys(data))
 
             setPredictions(data)
             
+            saveToLocalStorage("ppf", data)
         })
     }
 
-    // let currentZoom = 0; 
     const [currentZoom, setCurrentZoom] = useState(0)
     let minZoom = 0; 
     let maxZoom = 10; 
@@ -40,30 +40,29 @@ const GetPPFPred = () =>{
 
 
     const predTitles = ["ПРОШЛОЕ", "НАСТОЯЩЕЕ", "БУДУЩЕЕ"]
-    const [predTypeKey, setPredTypeKey] = useState('future')
+    const [predTypeKey, setPredTypeKey] = useState('past')
+    const predKeys = ['past', 'present', 'future']
     // 0 - past, 1 - present, 2 - future
     const [predType, setPredType] = useState(0)
     const EnlargePred = (e) =>{
         document.body.style.overflow = "hidden";
         
         let direction = e.deltaY < 0?-1:1
-        console.log(direction)
         let newZoom = currentZoom + direction * stepSize
 
         let pred = document.getElementById("ppf-pred")
 
 
-
         if(newZoom > maxZoom || newZoom < minZoom){
             if(newZoom > maxZoom){
                 if(predType < 2){
-                    setPredType(p =>{
-                        return p + 1
-                    })
+                    var newType = predType + 1
+                    setPredType(newType)
 
                     setCurrentZoom(0)
 
-                    var nextPred = Object.keys(predictions)[predType]
+                    var nextPred = predKeys[newType]
+                    
                     setPredTypeKey(nextPred)
 
                     pred.style.transform = `scale(0)`
@@ -72,12 +71,12 @@ const GetPPFPred = () =>{
                 }
             }else if (newZoom < minZoom){
                 if(predType > 0){
-                    setPredType(p =>{
-                        return p-1
-                    });
+                    var newType = predType - 1
+                    setPredType(newType);
                     setCurrentZoom(10)
 
-                    var nextPred = Object.keys(predictions)[predType]
+                    var nextPred = predKeys[newType]
+                    
                     setPredTypeKey(nextPred)
 
                     pred.style.transform = `scale(1)`

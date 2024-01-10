@@ -1,13 +1,12 @@
-import { goBack, getFromLocalStorage, removeAll, removeFromLocalStorage } from "../../utils/utils"
 import { useEffect, useState } from "react"
+import { removeAll, goBack, getFromLocalStorage, removeFromLocalStorage } from "../../utils/utils"
 
-const YNPrediction = ({preds, inkey, update}) =>{
+const PPFPrediction = ({preds, inkey, update})=>{
 
     const deletePred = ()=>{
-        removeFromLocalStorage("yn", inkey)
+        removeFromLocalStorage("ppf", inkey)
         update()
     }
-
 
     return(
         <div className={`container-fluid prediction_holder col-7 mt-3 mb-3`}>
@@ -16,22 +15,21 @@ const YNPrediction = ({preds, inkey, update}) =>{
 
 
                 <div className="col-12 text-start mt-3 mb-2">
-                    {preds.map((p, index) =>(
-                        <span>{(index + 1) + ": " + p}<br/></span>
-                    ))}
+                    <span>{"Прошлое: " + preds['past']}<br/></span>
+                    <span>{"Настоящее: " + preds['present']}<br/></span>
+                    <span>{"Будущее: " + preds['future']}</span>
                 </div>
             </div>
         </div>
     )
 }
 
-
-const MyYNPreds = () =>{
+const MyPPFPreds = () =>{
 
     const [predictions, setPredictions] = useState(undefined)
 
     const updatePreds = () =>{
-        const preds = getFromLocalStorage("yn")
+        const preds = getFromLocalStorage("ppf")
         const predsArr = []
 
         if(preds != undefined){
@@ -51,10 +49,9 @@ const MyYNPreds = () =>{
     }, [])
 
     const removeAllPreds = () =>{
-        removeAll("yn")
+        removeAll("ppf")
         updatePreds()
     }
-
 
     return(
         <div className="container-fluid">
@@ -63,7 +60,6 @@ const MyYNPreds = () =>{
                     вернуться назад
                 </button>
             </div>
-
 
             {predictions?(
                 <div className="row justify-content-center mt-5">
@@ -76,7 +72,7 @@ const MyYNPreds = () =>{
                     
                     <div className="col-12">
                         {predictions.map(p =>(
-                            <YNPrediction preds={p.preds} inkey={p.inkey} update={updatePreds}/>
+                            <PPFPrediction preds={p.preds} inkey={p.inkey} update={updatePreds}/>
                         ))}
                     </div>
                 </div>
@@ -85,4 +81,4 @@ const MyYNPreds = () =>{
     )
 }
 
-export default MyYNPreds
+export default MyPPFPreds

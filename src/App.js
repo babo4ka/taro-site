@@ -13,6 +13,7 @@ import MyGeneralPreds from './components/my_preds/MyGeneralPreds';
 import GetYNPred from './components/get_preds/GetYNPred';
 import MyYNPreds from './components/my_preds/MyYNPreds';
 import GetPPFPred from './components/get_preds/GetPPFPred';
+import MyPPFPreds from './components/my_preds/MyPPFPreds';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/getYN" element={<GetYNPred/>}/>
           <Route exact path="/myYN" element={<MyYNPreds/>}/>
           <Route exact path="/getPPF" element={<GetPPFPred/>}/>
+          <Route exact path="/myPPF" element={<MyPPFPreds/>}/>
         </Routes>
       </Router>
     </Provider>
