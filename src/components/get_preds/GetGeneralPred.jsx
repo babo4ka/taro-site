@@ -47,7 +47,7 @@ const GetGeneralPred = () =>{
     const getPrediction = () =>{
         console.log("get pred before fetch")
         setPredictions(undefined)
-        $.get("http://localhost:8080/getGeneral", (data)=>{
+        $.get(`http://localhost:8080/getGeneral?len=${$("#gen-count-inp").val()}`, (data)=>{
             // console.log("get pred after fetch inside")
             setPrediction(data)
             
@@ -77,6 +77,12 @@ const GetGeneralPred = () =>{
                         базар судьбы
                     </button>
                 </div>
+
+                <div className="col-12 mt-5 row justify-content-center">
+                    <span style={{color:"#FFFFFF"}} className="col-12 fw-bold">сколько слов базарить?</span>
+                    <input id="gen-count-inp" type="number" className="col-1 mt-2"/>
+                </div>
+                
 
                 <div className="col-12 mt-5">
                     <button onClick={goBack} className="btn col-2 nav_btn">

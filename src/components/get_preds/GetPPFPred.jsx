@@ -24,7 +24,7 @@ const GetPPFPred = () =>{
     const getPrediction = async () =>{
         setPredictions(undefined)
         setStatus("гадаем судьбу...")
-        await $.get("http://localhost:8080/getPPF", (data)=>{
+        await $.get(`http://localhost:8080/getPPF?len=${$("#ppf-count-inp").val()}`, (data)=>{
             console.log(Object.keys(data))
 
             setPredictions(data)
@@ -99,6 +99,12 @@ const GetPPFPred = () =>{
                         базар судьбы
                     </button>
                 </div>
+
+                <div className="col-12 mt-5 row justify-content-center">
+                    <span style={{color:"#FFFFFF"}} className="col-12 fw-bold">сколько слов базарить?</span>
+                    <input id="ppf-count-inp" type="number" className="col-1 mt-2"/>
+                </div>
+                
 
                 <div className="col-12 mt-5">
                     <button onClick={goBack} className="btn col-2 nav_btn">

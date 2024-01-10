@@ -54,7 +54,7 @@ const GetYNPred = () =>{
     const getPrediction = () =>{
         setPredictions(undefined)
         setStatus("гадаем судьбу...")
-        $.get("http://localhost:8080/getYN", (data)=>{
+        $.get(`http://localhost:8080/getYN?len=${$("#yn-count-inp").val()}`, (data)=>{
             saveToLocalStorage("yn", data)
 
             setPredictions(data)
@@ -70,6 +70,12 @@ const GetYNPred = () =>{
                         базар судьбы
                     </button>
                 </div>
+
+                <div className="col-12 mt-5 row justify-content-center">
+                    <span style={{color:"#FFFFFF"}} className="col-12 fw-bold">сколько слов базарить?</span>
+                    <input id="yn-count-inp" type="number" className="col-1 mt-2"/>
+                </div>
+                
 
                 <div className="col-12 mt-5">
                     <button onClick={goBack} className="btn col-2 nav_btn">
