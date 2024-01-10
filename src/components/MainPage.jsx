@@ -37,7 +37,7 @@ const MainPage = () =>{
 
     const generalPages = ["/getGeneral", "/myGeneral"]
     const ynPages = ["/getYN", "/myYN"]
-    const pffPages = ["/getPFF", "/myPFF"]
+    const ppfPages = ["/getPPF", "/myPPF"]
     //0 - get, 1 - my, (-1) - none
     const [pageType, setPageType] = useState(-1)
 
@@ -47,6 +47,10 @@ const MainPage = () =>{
 
     const openYNPage = () =>{
         window.location.href = ynPages[pageType]
+    }
+
+    const openPPFPage = () =>{
+        window.location.href = ppfPages[pageType]
     }
 
 
@@ -66,7 +70,7 @@ const MainPage = () =>{
                 <div id="choose-pred-btns" className="col-12 row justify-content-center mt-5 hidden-btns">
                     <button onClick={openGeneralPage} className="btn col-md-2 col-12 nav_btn">общее</button>
                     <button onClick={openYNPage} className="btn col-md-2 col-12 nav_btn">да / нет</button>
-                    <button className="btn col-md-2 col-12 nav_btn">прошлое-настоящее-будущее</button>
+                    <button onClick={openPPFPage} className="btn col-md-2 col-12 nav_btn">прошлое-настоящее-будущее</button>
                     <div className="col-12">
                         <button onClick={goToMain} className="btn col-md-2 col-12 nav_btn mt-3">назад</button>
                     </div>
