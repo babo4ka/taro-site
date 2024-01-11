@@ -122,7 +122,7 @@ const GetPPFPred = () =>{
                         <span>{predictions[predTypeKey]}</span>
                     </div> */}
 
-                    <div className="col-2 pred-cube-holder">
+                    <div className="col-3 row justify-content-center text-center pred-cube-holder">
                         <span style={{color:"#FFFFFF"}} className="fw-bold">ПРОШЛОЕ</span>
                         <div class="pred-cube mt-5">
                             <div class="back side past"></div>
@@ -134,8 +134,8 @@ const GetPPFPred = () =>{
                         </div>
                     </div>
                     
-                    <div className="col-2 pred-cube-holder">
-                    <span style={{color:"#FFFFFF"}} className="fw-bold">НАСТОЯЩЕЕ</span>
+                    <div className="col-3 row justify-content-center text-center pred-cube-holder">
+                        <span style={{color:"#FFFFFF"}} className="fw-bold">НАСТОЯЩЕЕ</span>
                         <div class="pred-cube mt-5">
                             <div class="back side present"></div>
                             <div class="left side present"></div>
@@ -146,8 +146,8 @@ const GetPPFPred = () =>{
                         </div>
                     </div>
                     
-                    <div className="col-2 pred-cube-holder">
-                    <span style={{color:"#FFFFFF"}} className="fw-bold">БУДУЩЕЕ</span>
+                    <div className="col-3 row justify-content-center text-center pred-cube-holder">
+                        <span style={{color:"#FFFFFF"}} className="fw-bold">БУДУЩЕЕ</span>
                         <div class="pred-cube mt-5">
                             <div class="back side future"></div>
                             <div class="left side future"></div>
