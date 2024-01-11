@@ -2,8 +2,7 @@ import "./MainPage.css"
 import "./Common.css"
 import { useState } from "react"
 import $ from 'jquery'
-import { useDispatch, useSelector} from "react-redux"
-import { add_page } from "../store/pageReducer"
+import "./Spider.css"
 
 const MainPage = () =>{
 
@@ -54,8 +53,12 @@ const MainPage = () =>{
     }
 
 
+
+
+   
     return(
         <div className="container-fluid">
+            {/* <canvas id="spider"></canvas> */}
             <div className="row justify-content-center text-center">
                 <div className="col-12 title">
                     <h1 className="col-12">{titleText}</h1>

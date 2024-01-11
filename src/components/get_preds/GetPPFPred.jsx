@@ -1,7 +1,7 @@
 import { goBack, saveToLocalStorage } from "../../utils/utils"
 import $ from 'jquery'
-import { useEffect, useState } from "react"
-import { act } from "react-dom/test-utils"
+import {useState } from "react"
+import "../PPF.css"
 
 const PredCard = ({title, text}) =>{
 
@@ -114,24 +114,50 @@ const GetPPFPred = () =>{
             </div>
 
             {predictions?(
-                <div onWheel={EnlargePred} id="ppf-preds-scroll" className="row justify-content-center ppf-preds-holder">
-
+                <div id="ppf-preds-scroll" className="row justify-content-center ppf-preds-holder">
+{/* 
                     <h2 style={{color:"#ffffff"}} className="ppf-title text-center">{predTitles[predType]}</h2>
 
                     <div id="ppf-pred" className="col-7 ppf-pred-holder">
                         <span>{predictions[predTypeKey]}</span>
-                    </div>
-                    {/* <div className="col-12">
-                        <PredCard title="ПРОШЛОЕ" text={predictions['past']}/>
+                    </div> */}
+
+                    <div className="col-2 pred-cube-holder">
+                        <span style={{color:"#FFFFFF"}} className="fw-bold">ПРОШЛОЕ</span>
+                        <div class="pred-cube mt-5">
+                            <div class="back side past"></div>
+                            <div class="left side past"></div>
+                            <div class="right side past"></div>
+                            <div class="top side past"></div>
+                            <div class="bottom side past"></div>
+                            <div class="front side past"></div>
+                        </div>
                     </div>
                     
-                    <div className="col-12">
-                        <PredCard title="НАСТОЯЩЕЕ" text={predictions['present']}/>
+                    <div className="col-2 pred-cube-holder">
+                    <span style={{color:"#FFFFFF"}} className="fw-bold">НАСТОЯЩЕЕ</span>
+                        <div class="pred-cube mt-5">
+                            <div class="back side present"></div>
+                            <div class="left side present"></div>
+                            <div class="right side present"></div>
+                            <div class="top side present"></div>
+                            <div class="bottom side present"></div>
+                            <div class="front side present"></div>
+                        </div>
                     </div>
-
-                    <div className="col-12">
-                        <PredCard title="БУДУЩЕЕ" text={predictions['future']}/>
-                    </div> */}
+                    
+                    <div className="col-2 pred-cube-holder">
+                    <span style={{color:"#FFFFFF"}} className="fw-bold">БУДУЩЕЕ</span>
+                        <div class="pred-cube mt-5">
+                            <div class="back side future"></div>
+                            <div class="left side future"></div>
+                            <div class="right side future"></div>
+                            <div class="top side future"></div>
+                            <div class="bottom side future"></div>
+                            <div class="front side future"></div>
+                        </div>
+                    </div>
+                    
                 </div>
             ):
                 <div className='row justify-content-center text-center mt-5'>
