@@ -3,6 +3,7 @@ import { getFromLocalStorage, removeFromLocalStorage, saveToLocalStorage, remove
 import { useEffect, useState } from "react"
 import $ from 'jquery'
 import GeneralPrediction from "../GeneralPrediction"
+import GetBazarBtn from "../GetBazarBtn"
 
 
 const GetGeneralPred = () =>{
@@ -72,11 +73,7 @@ const GetGeneralPred = () =>{
     return(
         <div className="container-fluid">
             <div className="row justify-content-center text-center">
-                <div className="col-12 bazar-btn-holder">
-                    <button onClick={getPrediction} className="btn get-bazar-btn col-4">
-                        базар судьбы
-                    </button>
-                </div>
+                <GetBazarBtn getPrediction={getPrediction} />
 
                 <div className="col-12 mt-5 row justify-content-center">
                     <span style={{color:"#FFFFFF"}} className="col-12 fw-bold">сколько слов базарить?</span>
