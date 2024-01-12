@@ -67,18 +67,6 @@
 }
 
 
-.yn-holder{
-    margin: 0px 10px 0px 10px;
-
-    font-weight: 500;
-}
-
-.before-flip-yn-holder{
-    cursor: pointer;
-    max-height: 50px;
-}
-
-
 .ppf-preds-holder{
     margin-top: 250px;
     margin-bottom: 1000px;

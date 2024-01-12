@@ -1,50 +1,61 @@
 import $ from 'jquery'
 import { useState } from 'react'
 import { saveToLocalStorage, goBack } from '../../utils/utils'
+import "../YN.css"
 
 const YNCard = ({predText, index}) =>{
-
-    const [text, setText] = useState("набазарено, но скрыто, жмякай и смотри")
     const [flipped, setFlipped] = useState(false)
 
     const flip = () =>{
+        const duration = 500
         
         if(!flipped){
-            document.getElementById(`yn-holder-${index}`).animate([
-                {transform:'rotateY(90deg)'}
-            ], {
-                duration: 300,
-                iterations: 1
+            const width = $(`#front-${index}`).width()
+            const animatedFront = document.getElementById(`front-${index}`).animate([
+                {transform:"translateX(0px)"},
+                {transform:`translateX(${width/2}px) rotateZ(90deg)`},
+            ], 
+            {
+                duration:duration
             })
-            .onfinish =()=>{
-                $(`#yn-holder-${index}`).removeClass("before-flip-yn-holder")
-                setText(predText)
+            
+            animatedFront.onfinish = ()=>{
+                document.getElementById(`front-${index}`).remove()
             }
+
             setFlipped(true)
         }
         
     }
 
+    const preOpen = () =>{
+        const el = document.getElementById(`front-${index}`)
+        if(el != undefined){
+            document.getElementById(`front-${index}`).style.transform = "translateX(25px) translateY(25px)"
+        }
+    }
+
+    const close = () =>{
+        const el = document.getElementById(`front-${index}`)
+        if(el != undefined){
+            document.getElementById(`front-${index}`).style.transform = "translateX(0px)"
+        }
+    }
+
     return(
-        <div onClick={flip} id={`yn-holder-${index}`} className="col-3 prediction_holder yn-holder pt-2 pb-2 before-flip-yn-holder">
-            <span>{text}</span>
-        </div>
-    )
-}
-
-const YNPred = ({preds})=>{
-
-
-    return(
-        <div className="container-fluid mt-5">
-            <div className="row justify-content-center text-center">
-                {preds.map((pred, index) =>(
-                    <YNCard predText={pred} index={index}/>
-                ))}
+        <div onMouseLeave={close} onMouseMove={preOpen} onClick={flip} id={`yn-holder-${index}`} className="col-3 pt-2 pb-2 yn-pred-holder align-items-center">
+            <div id={`front-${index}`} className="yn-holder yn-side yn-front">
+                <span>набазарено, но скрыто, жмякай и смотри</span>
             </div>
+
+            <div id={`back-${index}`} className="yn-holder yn-side yn-back">
+                <span>{predText}</span>
+            </div>
+            
         </div>
     )
 }
+
 
 const GetYNPred = () =>{
 
@@ -84,7 +95,15 @@ const GetYNPred = () =>{
                 </div>
             </div>
 
-            {predictions?(<YNPred preds={predictions}/>):
+            {predictions?(
+                <div className="container-fluid mt-5">
+                    <div className="row justify-content-center text-center">
+                        {predictions.map((p, index) => (
+                            <YNCard predText={p} index={index}/>
+                        ))}
+                    </div>
+                </div>
+            ):
                 <div className='row justify-content-center text-center mt-5'>
                     <span style={{color:"#ffffff"}} className='fw-bold'>{status}</span>
                 </div>
