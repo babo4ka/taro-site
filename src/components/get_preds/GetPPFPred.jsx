@@ -91,6 +91,33 @@ const GetPPFPred = () =>{
         }
     }
 
+    const [predTitle, setPredTitle] = useState("")
+    const [predshow, setPredShow] = useState("")
+
+    const setPredToModal = (e) =>{
+        switch(e.currentTarget.id){
+            case "past-box":
+                setPredTitle("ПРОШЛОЕ")
+                setPredShow(predictions['past'])
+                return
+            
+            case "present-box":
+                setPredTitle("НАСТОЯЩЕЕ")
+                setPredShow(predictions['present'])
+                return
+
+            case "future-box":
+                setPredTitle("БУДУЩЕЕ")
+                setPredShow(predictions['future'])
+                return
+
+            default:
+                setPredTitle("")
+                setPredShow("")
+                return
+        }
+    }
+
     return(
         <div className="container-fluid">
             <div className="row justify-content-center text-center">
@@ -122,7 +149,7 @@ const GetPPFPred = () =>{
                         <span>{predictions[predTypeKey]}</span>
                     </div> */}
 
-                    <div className="col-3 row justify-content-center text-center pred-cube-holder">
+                    <div onClick={setPredToModal} id="past-box" className="col-3 row justify-content-center text-center pred-cube-holder" data-bs-toggle="modal" data-bs-target="#prediction-modal">
                         <span style={{color:"#FFFFFF"}} className="fw-bold">ПРОШЛОЕ</span>
                         <div class="pred-cube mt-5">
                             <div class="back side past"></div>
@@ -134,7 +161,7 @@ const GetPPFPred = () =>{
                         </div>
                     </div>
                     
-                    <div className="col-3 row justify-content-center text-center pred-cube-holder">
+                    <div onClick={setPredToModal} id="present-box" className="col-3 row justify-content-center text-center pred-cube-holder" data-bs-toggle="modal" data-bs-target="#prediction-modal">
                         <span style={{color:"#FFFFFF"}} className="fw-bold">НАСТОЯЩЕЕ</span>
                         <div class="pred-cube mt-5">
                             <div class="back side present"></div>
@@ -146,7 +173,7 @@ const GetPPFPred = () =>{
                         </div>
                     </div>
                     
-                    <div className="col-3 row justify-content-center text-center pred-cube-holder">
+                    <div onClick={setPredToModal} id="future-box" className="col-3 row justify-content-center text-center pred-cube-holder" data-bs-toggle="modal" data-bs-target="#prediction-modal">
                         <span style={{color:"#FFFFFF"}} className="fw-bold">БУДУЩЕЕ</span>
                         <div class="pred-cube mt-5">
                             <div class="back side future"></div>
@@ -164,6 +191,20 @@ const GetPPFPred = () =>{
                     <span style={{color:"#ffffff"}} className='fw-bold'>{status}</span>
                 </div>
             }
+
+            <div id="prediction-modal" class="modal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content modal-window">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{predTitle}</h5>
+                            <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Закрыть">&#10060;</button>
+                        </div>
+                        <div class="modal-body text-center fw-bold">
+                            <p>{predshow}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
