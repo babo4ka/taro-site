@@ -12,10 +12,11 @@
     perspective-origin: center 50px;
     transform-style: preserve-3d;
     cursor: pointer;
+    animation-fill-mode:forwards;
 }
 
 .bazar-btn-holder:hover{
-    animation: rotate-btn 5s infinite linear;
+    /* animation: rotate-btn 5s infinite linear; */
     
 }
 
@@ -30,8 +31,9 @@
 
     border: 1px solid white;
 
-    background-image: url("../assets/space-background.jpg");
-    opacity: .7;
+    background-color: #1c1c1c;
+    /* background-image: url("../assets/space-background.jpg"); */
+    /* opacity: .7; */
 }
 
 

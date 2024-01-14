@@ -1,25 +1,20 @@
 import "./GetBazar.css"
 
-const GetBazarBtn = ({getPrediction}) =>{
+const GetBazarBtn = ({getPrediction, fsText, bosText, basText, btnId}) =>{
 
     return(
-        <div onClick={getPrediction} className="col-12 bazar-btn-holder">
-                {/* <button onClick={getPrediction} className="btn get-bazar-btn col-4">
-                    базар судьбы
-                </button> */}
+        <div id={btnId} onClick={getPrediction} className="col-12 bazar-btn-holder">
             <div class="back-bs bazar-side">
-                <span>базар судьбы</span>
+                <span>{basText}</span>
             </div>
-            {/* <div class="left-bs bazar-side"></div>
-            <div class="right-bs bazar-side"></div> */}
             <div class="top-bs bazar-side">
-                <span>базар судьбы</span>
+                <span>{bosText}</span>
             </div>
             <div class="bottom-bs bazar-side">
-                <span>базар судьбы</span>
+                <span>""</span>
             </div>
             <div class="front-bs bazar-side">
-                <span>базар судьбы</span>
+                <span>{fsText}</span>
             </div>
 
         </div>

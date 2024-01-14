@@ -2,6 +2,7 @@ import { goBack, saveToLocalStorage } from "../../utils/utils"
 import $ from 'jquery'
 import {useState } from "react"
 import "../PPF.css"
+import GetBazarBtn from "../GetBazarBtn"
 
 const PredCard = ({title, text}) =>{
 
@@ -24,72 +25,21 @@ const GetPPFPred = () =>{
     const getPrediction = async () =>{
         setPredictions(undefined)
         setStatus("гадаем судьбу...")
+        rotateBtn(0)
         await $.get(`http://localhost:8080/getPPF?len=${$("#ppf-count-inp").val()}`, (data)=>{
             console.log(Object.keys(data))
 
             setPredictions(data)
             
             saveToLocalStorage("ppf", data)
+            rotateBtn(1)
+
+            setTimeout(()=>rotateBtn(2), 2000)
         })
     }
 
-    const [currentZoom, setCurrentZoom] = useState(0)
-    let minZoom = 0; 
-    let maxZoom = 10; 
-    let stepSize = 1;
 
 
-    const predTitles = ["ПРОШЛОЕ", "НАСТОЯЩЕЕ", "БУДУЩЕЕ"]
-    const [predTypeKey, setPredTypeKey] = useState('past')
-    const predKeys = ['past', 'present', 'future']
-    // 0 - past, 1 - present, 2 - future
-    const [predType, setPredType] = useState(0)
-    const EnlargePred = (e) =>{
-        document.body.style.overflow = "hidden";
-        
-        let direction = e.deltaY < 0?-1:1
-        let newZoom = currentZoom + direction * stepSize
-
-        let pred = document.getElementById("ppf-pred")
-
-
-        if(newZoom > maxZoom || newZoom < minZoom){
-            if(newZoom > maxZoom){
-                if(predType < 2){
-                    var newType = predType + 1
-                    setPredType(newType)
-
-                    setCurrentZoom(0)
-
-                    var nextPred = predKeys[newType]
-                    
-                    setPredTypeKey(nextPred)
-
-                    pred.style.transform = `scale(0)`
-                }else{
-                    document.body.style.overflow = "auto";
-                }
-            }else if (newZoom < minZoom){
-                if(predType > 0){
-                    var newType = predType - 1
-                    setPredType(newType);
-                    setCurrentZoom(10)
-
-                    var nextPred = predKeys[newType]
-                    
-                    setPredTypeKey(nextPred)
-
-                    pred.style.transform = `scale(1)`
-                }else{
-                    document.body.style.overflow = "auto";
-                }
-            }
-        }else{
-            setCurrentZoom(newZoom)
-    
-            pred.style.transform = `scale(${newZoom/10})`
-        }
-    }
 
     const [predTitle, setPredTitle] = useState("")
     const [predshow, setPredShow] = useState("")
@@ -118,14 +68,37 @@ const GetPPFPred = () =>{
         }
     }
 
+    const routesMap = [90,90,-180]
+
+    const btnId = "getPPFPredBtn"
+    const rotateBtn = (route) =>{
+        const newRotate = routesMap
+        .filter((m, i) => i < route)
+        .reduce((sum, currValue) => sum + currValue, 0) + routesMap[route]
+
+        const animateBtn = document.getElementById(btnId).animate([
+            {transform:`rotateX(${newRotate}deg)`}
+        ],
+        {
+            duration:500
+        })
+
+        animateBtn.onfinish = () =>{
+            document.getElementById(btnId).style.transform = `rotateX(${newRotate}deg)`
+        }
+    }
+
     return(
         <div className="container-fluid">
             <div className="row justify-content-center text-center">
-                <div className="col-12 bazar-btn-holder">
-                    <button onClick={getPrediction} className="btn get-bazar-btn col-4">
-                        базар судьбы
-                    </button>
-                </div>
+
+                <GetBazarBtn
+                    getPrediction={getPrediction}
+                    fsText="базар судьбы" 
+                    bosText="гадаем судьбу..." 
+                    basText="судьба готова"
+                    btnId={btnId}
+                />
 
                 <div className="col-12 mt-5 row justify-content-center">
                     <span style={{color:"#FFFFFF"}} className="col-12 fw-bold">сколько слов базарить?</span>
@@ -142,12 +115,7 @@ const GetPPFPred = () =>{
 
             {predictions?(
                 <div id="ppf-preds-scroll" className="row justify-content-center ppf-preds-holder">
-{/* 
-                    <h2 style={{color:"#ffffff"}} className="ppf-title text-center">{predTitles[predType]}</h2>
 
-                    <div id="ppf-pred" className="col-7 ppf-pred-holder">
-                        <span>{predictions[predTypeKey]}</span>
-                    </div> */}
 
                     <div onClick={setPredToModal} id="past-box" className="col-3 row justify-content-center text-center pred-cube-holder" data-bs-toggle="modal" data-bs-target="#prediction-modal">
                         <span style={{color:"#FFFFFF"}} className="fw-bold">ПРОШЛОЕ</span>

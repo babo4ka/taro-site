@@ -66,24 +66,48 @@ const GetYNPred = () =>{
     const getPrediction = () =>{
         setPredictions(undefined)
         setStatus("гадаем судьбу...")
+        rotateBtn(0)
         $.get(`http://localhost:8080/getYN?len=${$("#yn-count-inp").val()}`, (data)=>{
             saveToLocalStorage("yn", data)
 
             setPredictions(data)
+            rotateBtn(1)
+            setTimeout(()=>rotateBtn(2), 2000)
         })
+    }
+
+    const routesMap = [90,90,-180]
+
+    const btnId = "getYNPredBtn"
+    const rotateBtn = (route) =>{
+        const newRotate = routesMap
+        .filter((m, i) => i < route)
+        .reduce((sum, currValue) => sum + currValue, 0) + routesMap[route]
+
+        const animateBtn = document.getElementById(btnId).animate([
+            {transform:`rotateX(${newRotate}deg)`}
+        ],
+        {
+            duration:500
+        })
+
+        animateBtn.onfinish = () =>{
+            document.getElementById(btnId).style.transform = `rotateX(${newRotate}deg)`
+        }
     }
 
 
     return(
         <div className="container-fluid">
             <div className="row justify-content-center text-center">
-                {/* <div className="col-12 bazar-btn-holder">
-                    <button onClick={getPrediction} className="btn get-bazar-btn col-4">
-                        базар судьбы
-                    </button>
-                </div> */}
 
-                <GetBazarBtn getPrediction={getPrediction} />
+                <GetBazarBtn
+                    getPrediction={getPrediction}
+                    fsText="базар судьбы" 
+                    bosText="гадаем судьбу..." 
+                    basText="судьба готова"
+                    btnId={btnId}
+                />
 
                 <div className="col-12 mt-5 row justify-content-center">
                     <span style={{color:"#FFFFFF"}} className="col-12 fw-bold">сколько слов базарить?</span>
